@@ -92,7 +92,7 @@
               </a>
               {% if user.is_authenticated %}
               <span class="badge badge-pill badge-danger notify">
-                {{request.user.profile.get_cart_count}}
+                {% if user.profile %}{{ user.profile.get_cart_count }}{% endif %}
               </span>
               {% else %}
               <span class="badge badge-pill badge-danger notify"></span>
@@ -101,7 +101,7 @@
 
             <!-- Profile Icon -->
             <div class="widget-header icontext">
-              {% if user.is_authenticated %}
+              {% if user.is_authenticated and user.profile %}
               {% if user.profile.profile_image %}
               <a href="{% url 'profile' username=user.username %}" class="icon icon-sm rounded-circle border">
                 <img src="{{ user.profile.profile_image }}" alt="Profile Image" class="rounded-circle" width="42"

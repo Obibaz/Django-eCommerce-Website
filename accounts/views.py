@@ -2,7 +2,6 @@ import os
 import json
 import uuid
 import razorpay
-from weasyprint import CSS, HTML
 from products.models import *
 from django.urls import reverse
 from django.conf import settings
@@ -256,6 +255,11 @@ def success(request):
 
 # HTML to PDF Conversion
 def render_to_pdf(template_src, context_dict={}):
+    try:
+        from weasyprint import CSS, HTML
+    except ImportError:
+        return None
+
     template = get_template(template_src)
     html = template.render(context_dict)
 
